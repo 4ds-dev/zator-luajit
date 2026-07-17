@@ -523,5 +523,10 @@ void lj_lex_init(lua_State *L)
     fixstring(s_def); 
     s_def->reserved = (uint8_t)(TK_function - TK_OFS);
   }
+  {
+    GCstr *s_var = lj_str_newz(L, "var");
+    fixstring(s_var); 
+    s_var->reserved = (uint8_t)(TK_local - TK_OFS);
+  }
 }
 
