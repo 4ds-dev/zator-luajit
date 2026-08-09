@@ -470,7 +470,6 @@ LJLIB_CF(import)
   lua_Debug ar;
   int resolved = 0;
 
-  /* 1. Определяем путь относительно вызывающего скрипта */
   if (lua_getstack(L, 1, &ar) && lua_getinfo(L, "S", &ar) && ar.source[0] == '@') {
     const char *src = ar.source + 1;
     const char *path_sep = strrchr(src, '/');
@@ -484,25 +483,20 @@ LJLIB_CF(import)
     snprintf(full_path, sizeof(full_path), "%s", path);
   }
 
-  /* 2. Защита от повторного прогона (кэш _LOADED) */
   lua_getfield(L, LUA_REGISTRYINDEX, "_LOADED");
   lua_getfield(L, -1, path);
   if (!lua_isnil(L, -1)) {
     lua_pop(L, 2);
-    return 0; /* Уже загружали, выходим */
+    return 0;
   }
   lua_pop(L, 2);
 
-  /* 3. Загружаем файл */
   if (luaL_loadfile(L, full_path) != LUA_OK) {
     return lua_error(L);
   }
   
-  /* 4. Просто выполняем код целиком в общем процессе */
-  /* Передаем 0 в nresults, чтобы очистить стек и ничего не затирать */
   lua_call(L, 0, 0); 
 
-  /* 5. Помечаем в кэше, что файл успешно выполнен */
   lua_getfield(L, LUA_REGISTRYINDEX, "_LOADED");
   lua_pushboolean(L, 1);
   lua_setfield(L, -2, path);
@@ -756,7 +750,6 @@ LUALIB_API int luaopen_base(lua_State *L)
   LJ_LIB_REG(L, "_G", base);
   LJ_LIB_REG(L, LUA_COLIBNAME, coroutine);
 
-  /* Встраиваем f-строки прямо в глобальное окружение при старте VM */
   if (luaL_dostring(L,
     "local function format(_, str)\n"
     "   local function scan_using(scanner, arg, searched)\n"

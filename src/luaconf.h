@@ -20,7 +20,9 @@
 #define LUA_LDIR	"!\\lua\\"
 #define LUA_CDIR	"!\\"
 #define LUA_PATH_DEFAULT \
-  ".\\?.lua;" LUA_LDIR"?.lua;" LUA_LDIR"?\\init.lua;"
+  ".\\?.lua;.\\?.zator;.\\?.zt;" \
+  LUA_LDIR"?.lua;" LUA_LDIR"?.zator;" LUA_LDIR"?.zt;" \
+  LUA_LDIR"?\\init.lua;" LUA_LDIR"?\\init.zator;" LUA_LDIR"?\\init.zt;"
 #define LUA_CPATH_DEFAULT \
   ".\\?.dll;" LUA_CDIR"?.dll;" LUA_CDIR"loadall.dll"
 #else
@@ -38,29 +40,31 @@
 #define LUA_LUADIR	"/lua/5.1/"
 
 #ifdef LUA_ROOT
-#define LUA_JROOT	LUA_ROOT
-#define LUA_RLDIR	LUA_ROOT "/share" LUA_LUADIR
-#define LUA_RCDIR	LUA_ROOT "/" LUA_MULTILIB LUA_LUADIR
-#define LUA_RLPATH	";" LUA_RLDIR "?.lua;" LUA_RLDIR "?/init.lua"
-#define LUA_RCPATH	";" LUA_RCDIR "?.so"
+#define LUA_JROOT LUA_ROOT
+#define LUA_RLDIR LUA_ROOT "/share" LUA_LUADIR
+#define LUA_RCDIR LUA_ROOT "/" LUA_MULTILIB LUA_LUADIR
+#define LUA_RLPATH  ";" LUA_RLDIR "?.lua;" LUA_RLDIR "?.zator;" LUA_RLDIR "?.zt;" \
+                    LUA_RLDIR "?/init.lua;" LUA_RLDIR "?/init.zator;" LUA_RLDIR "?/init.zt"
+#define LUA_RCPATH  ";" LUA_RCDIR "?.so"
 #else
-#define LUA_JROOT	LUA_LROOT
+#define LUA_JROOT LUA_LROOT
 #define LUA_RLPATH
 #define LUA_RCPATH
 #endif
 
 #ifndef LUA_LJDIR
-#define LUA_LJDIR	LUA_JROOT "/share/luajit-2.1"
+#define LUA_LJDIR LUA_JROOT "/share/luajit-2.1"
 #endif
 
-#define LUA_JPATH	";" LUA_LJDIR "/?.lua"
-#define LUA_LLDIR	LUA_LROOT "/share" LUA_LUADIR
-#define LUA_LCDIR	LUA_LROOT "/" LUA_LMULTILIB LUA_LUADIR
-#define LUA_LLPATH	";" LUA_LLDIR "?.lua;" LUA_LLDIR "?/init.lua"
-#define LUA_LCPATH1	";" LUA_LCDIR "?.so"
-#define LUA_LCPATH2	";" LUA_LCDIR "loadall.so"
+#define LUA_JPATH ";" LUA_LJDIR "/?.lua;" LUA_LJDIR "/?.zator;" LUA_LJDIR "/?.zt"
+#define LUA_LLDIR LUA_LROOT "/share" LUA_LUADIR
+#define LUA_LCDIR LUA_LROOT "/" LUA_LMULTILIB LUA_LUADIR
+#define LUA_LLPATH  ";" LUA_LLDIR "?.lua;" LUA_LLDIR "?.zator;" LUA_LLDIR "?.zt;" \
+                    LUA_LLDIR "?/init.lua;" LUA_LLDIR "?/init.zator;" LUA_LLDIR "?/init.zt"
+#define LUA_LCPATH1 ";" LUA_LCDIR "?.so"
+#define LUA_LCPATH2 ";" LUA_LCDIR "loadall.so"
 
-#define LUA_PATH_DEFAULT	"./?.lua" LUA_JPATH LUA_LLPATH LUA_RLPATH
+#define LUA_PATH_DEFAULT  "./?.lua;./?.zator;./?.zt" LUA_JPATH LUA_LLPATH LUA_RLPATH
 #define LUA_CPATH_DEFAULT	"./?.so" LUA_LCPATH1 LUA_RCPATH LUA_LCPATH2
 #endif
 

@@ -30,11 +30,11 @@
 
 #include "lua.h"
 
-#define LUAJIT_VERSION		"LuaJIT 2.1.1783773675"
-#define LUAJIT_VERSION_NUM	20199  /* Deprecated. */
-#define LUAJIT_VERSION_SYM	luaJIT_version_2_1_1783773675
-#define LUAJIT_COPYRIGHT	"Copyright (C) 2005-2026 Mike Pall"
-#define LUAJIT_URL		"https://luajit.org/"
+#define LUAJIT_VERSION		"Zator v0.0.4"
+#define LUAJIT_VERSION_NUM	4  /* Deprecated. */
+#define LUAJIT_VERSION_SYM	zator_version_0_0_4
+#define LUAJIT_COPYRIGHT	"Based on LuaJIT (C) Mike Pall"
+#define LUAJIT_URL		"https://zapor.2bd.net/"
 
 /* Modes for luaJIT_setmode. */
 #define LUAJIT_MODE_MASK	0x00ff
